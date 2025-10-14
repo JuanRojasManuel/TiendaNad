@@ -1,4 +1,5 @@
-const Inicio = () => {
+//11 Implementación de rutas estaticas.
+const Eventos = () => {
     return (
         <>
             <h2>Seccion Eventos</h2>
@@ -13,4 +14,4 @@ const Inicio = () => {
         </>
     )
 }
-export default Inicio;
+export default Eventos;

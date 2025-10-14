@@ -1,3 +1,4 @@
+//11 Implementación de rutas estaticas.
 const Contacto = () => {
     return (
         <>

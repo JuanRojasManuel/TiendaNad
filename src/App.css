@@ -288,7 +288,7 @@ input[type=text], select, textarea {
 .carrito-descripcion-nad {
   font-size: 0.5 rem;
   color: #444;
-  height: 60px;
+  height: 45px;
   overflow: hidden;
 }
 

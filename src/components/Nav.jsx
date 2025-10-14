@@ -1,3 +1,6 @@
+//15 Navbar
+//Los enlaces presentados en el navbar deben ser funcionales, si tengo Inicio debe mostrar Inicio..
+
 import { Link } from "react-router-dom";
 const NavBar = () => {
   return(

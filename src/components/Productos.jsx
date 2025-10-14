@@ -1,6 +1,8 @@
 //1 Crear un componente para listar los productos disponibles.
 //7 Integración con una API.
 //9 Manejo de efectos secundarios con useEffect.
+//10 Estado de carga y errores al cargar productos.
+//14 Estado de carga y manejo de errores.
 
 import { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
@@ -26,10 +28,10 @@ const Productos = ({ agregarProducto }) =>  {
 
 },[]);
 
-    if(cargando)
-        return <p>Estamos cargando sus productos.</p>
     if(error)
         return <p>{error}</p>
+    if(cargando)
+        return <p>Estamos cargando sus productos.</p>
     return(
     <>
     <div className="productos-container-nad">
