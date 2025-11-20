@@ -27,7 +27,7 @@ const Nav = ({ onLinkClick }) => {
       <Link to="/novedades" className="general-link-nad" onClick={handleClick}>
         Novedades
       </Link>
-      <Link to="/reservas" className="general-link-nad">
+      <Link to="/reservas" className="general-link-nad" onClick={handleClick}>
         Reservas
       </Link>
       <Link to="/contacto" className="general-link-nad" onClick={handleClick}>
