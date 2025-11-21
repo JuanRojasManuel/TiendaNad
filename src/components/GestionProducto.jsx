@@ -29,7 +29,7 @@ const GestionProductos = () => {
     setProductoSeleccionado(null);
   };
 
-  // 🔴 Modal eliminar
+  //  Modal eliminar
   const abrirModalEliminar = (producto) => {
     setProductoAEliminar(producto);
     setMostrarModalEliminar(true);

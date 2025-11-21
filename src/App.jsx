@@ -18,30 +18,33 @@ import Reservas from "./Pages/Reservas.jsx";
 
 function App() {
   return (
-   <>
-   <Header />
+ <div className="layout-nad">
+        <Header />
+      <main className="main-nad">
+        <div className="container-nad">
+      <Routes>
+        <Route path="/" element={<Inicio />} />
+        <Route path="/eventos" element={<Eventos />} />
+        <Route path="/novedades" element={<Novedades />} />
+        <Route path="/contacto" element={<Contacto />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/reservas" element={<Reservas />} />
+        <Route path='/productos/:id' element={<ProductoDetalle />}/>
+        <Route path="/carrito" element={
+                <RutaProtegida >
+                  <Carrito />
+                </RutaProtegida>}/>
+        <Route path="/admin" element={
+                <RutaProtegida >
+                  <Admin />
+                </RutaProtegida>}/>
+          </Routes>
+        </div>
+      </main>
 
-    <Routes>
-      <Route path="/" element={<Inicio />} />
-      <Route path="/eventos" element={<Eventos />} />
-      <Route path="/novedades" element={<Novedades />} />
-      <Route path="/contacto" element={<Contacto />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/reservas" element={<Reservas />} />
-      <Route path='/productos/:id' element={<ProductoDetalle />}/>
-      <Route path="/carrito" element={
-              <RutaProtegida >
-                <Carrito />
-              </RutaProtegida>}/>
-      <Route path="/admin" element={
-              <RutaProtegida >
-                <Admin />
-              </RutaProtegida>}/>
-    </Routes>   
-   <Footer />
+      <Footer />
 
-   
-   </>
-  )
+    </div>
+  );
 }
 export default App

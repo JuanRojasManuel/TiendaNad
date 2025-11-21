@@ -1,56 +1,74 @@
+// src/pages/Login.jsx
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuthContext } from "../context/AuthContext.jsx";
+import { useAuthContext } from "../context/AuthContext";
 
 const Login = () => {
-  const [usuario, setUsuario] = useState("");
-  const [contrasenia, setContrasenia] = useState("");
   const { login } = useAuthContext();
   const navigate = useNavigate();
 
-  const manejarSubmit = (evento) => {
-    evento.preventDefault();
-    if (usuario === "admin" && contrasenia === "1234") {
-      login(usuario);
+  const [nombre, setNombre] = useState("");
+  const [password, setPassword] = useState("");
+  const [mensaje, setMensaje] = useState("");
+
+  const manejarSubmit = (e) => {
+    e.preventDefault();
+    setMensaje("");
+
+    const resultado = login(nombre.trim(), password.trim());
+
+    if (!resultado.ok) {
+      setMensaje(resultado.mensaje || "Error al iniciar sesión.");
+      return;
+    }
+
+    // Redirección según rol
+    if (resultado.rol === "admin") {
       navigate("/admin");
     } else {
-      alert("Usuario o contraseña inválido");
+      navigate("/"); // cliente va a inicio (o al carrito si querés)
     }
   };
 
   return (
-    <section className="login-body">
-    <section className="login-page">
+    <div className="login-page">
       <div className="login-card">
-
-        <form className="login-form" onSubmit={manejarSubmit}>
+        <div className="login-form">
           <h2>Iniciar sesión</h2>
+          <p>Para probar: admin / 1234 (admin) o cliente / 1234 (cliente).</p>
 
-          <label>
-            Usuario
-            <input
-              type="text"
-              value={usuario}
-              onChange={(e) => setUsuario(e.target.value)}
-              required
-            />
-          </label>
+          <form onSubmit={manejarSubmit}>
+            <label>
+              Usuario
+              <input
+                type="text"
+                value={nombre}
+                onChange={(e) => setNombre(e.target.value)}
+                placeholder="Ej: admin"
+              />
+            </label>
 
-          <label>
-            Contraseña
-            <input
-              type="password"
-              value={contrasenia}
-              onChange={(e) => setContrasenia(e.target.value)}
-              required
-            />
-          </label>
+            <label>
+              Contraseña
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Ej: 1234"
+              />
+            </label>
 
-          <button className="general-button-nad" type="submit">Iniciar sesión</button>
-        </form>
+            {mensaje && (
+              <p style={{ color: "crimson", fontSize: ".9rem" }}>{mensaje}</p>
+            )}
+
+            <button type="submit" className="general-button-nad">
+              Ingresar
+            </button>
+          </form>
+        </div>
       </div>
-    </section>
-    </section>
+    </div>
   );
 };
 

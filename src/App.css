@@ -3,7 +3,6 @@
 /* ================== BASE ================== */
 #root {
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
   background-color: #E8E6E1;
   color: #2c3e50;
@@ -15,20 +14,48 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+
 }
 
-body {
+html, body {
   margin: 0;
   padding: 0;
-  color: #2c3e50;
-  background-color: #000;
+  height: 100%;
+  background-color: #E8E6E1;
 }
+.layout-nad {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.main-nad {
+  flex: 1;
+  display: block;
+  padding: 2rem 0;
+  align-items: center;      
+  justify-content: center;  
+    
+}
+
+.container-nad {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0;
+  width: 100%;
+}
+
 
 /* ================== LAYOUT / GENERALES ================== */
 /* ================== LAYOUT / GENERALES ================== */
 /* ================== LAYOUT / GENERALES ================== */
 
 header {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0;
   width: 100%;
   position: sticky;
   top: 0;
@@ -396,19 +423,27 @@ header {
   padding: 0.7rem 0.9rem;
   font-family: inherit;
 }
+.menu-actions .general-button-nad {
+  white-space: nowrap;
+}
 
+.brand-text {
+  white-space: nowrap;
+}
 /* ================== LOGIN ================== */
 /* ================== LOGIN ================== */
 /* ================== LOGIN ================== */
 
 .login-page {
-  padding: 2rem;
+  min-height: 70vh;
   display: flex;
-  justify-content: center;
+  margin: 3rem;
+  flex-direction: column;
+  justify-content: center;   /* centra vertical */
+  align-items: center;       /* centra horizontal */
 }
 
 .login-body {
-  height: 82vh;
   align-content: center;
   align-items: center;
 }
@@ -711,12 +746,13 @@ header {
 .header-right {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
 .nav-links-nad {
   display: flex;
-  gap: 1.5rem;
+  gap: 1rem;
+
 }
 
 .nav-links-nad .general-link-nad {
@@ -1133,6 +1169,13 @@ header {
 }
 
 @media (max-width: 768px) {
+
+
+  .img-hero-nad {
+   height: 200px;
+    border-radius: 0;
+    object-position: right top;
+  }
   .header-bar {
     padding: 0.5rem 1rem;
   }
@@ -1188,16 +1231,8 @@ header {
   display: block;
   text-align: center;
 }
-  .img-hero-nad {
-    width: 100%;
-    height: 30vh;
-    object-fit: cover;
-    object-position: right top;
-    display: block;
-    border-radius: 8px;
-  }
 
-    .producto-botonera-nad {
+  .producto-botonera-nad {
     flex-direction: column;
     align-items: stretch;
   }

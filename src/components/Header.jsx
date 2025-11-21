@@ -46,7 +46,7 @@ function Header() {
             <Link to="/carrito" onClick={closeMenu}>
               <button className="general-button-nad btn-cart-nad">
                 <BagIcon className="icon-cart-nad" />
-                <span>Carrito</span>
+                
                 {contadorEnCarrito > 0 && (
                   <span className="cart-count-nad">{contadorEnCarrito}</span>
                 )}

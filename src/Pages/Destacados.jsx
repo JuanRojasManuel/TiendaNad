@@ -19,6 +19,7 @@ const Destacados = () => {
       : [];
 
   return (
+    <div className="container-nad">
     <section className="destacados-container">
       <h2 className="destacados-title">Destacados</h2>
 
@@ -71,6 +72,7 @@ const Destacados = () => {
         ))}
       </Swiper>
     </section>
+    </div>
   );
 };
 

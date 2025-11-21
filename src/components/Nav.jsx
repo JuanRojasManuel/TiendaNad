@@ -4,14 +4,17 @@
 // Navbar responsive con hamburguesa
 // src/components/Nav.jsx
 // src/components/Nav.jsx
+// src/components/Nav.jsx
+
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
 
 const Nav = ({ onLinkClick }) => {
   const { usuario } = useAuthContext();
-  const esAdmin = usuario === "admin";
 
-  // por si algún día lo usás sin pasarle la prop
+  // usuario?.rol === "admin"
+  const esAdmin = usuario?.rol === "admin";
+
   const handleClick = () => {
     if (onLinkClick) onLinkClick();
   };
@@ -33,6 +36,8 @@ const Nav = ({ onLinkClick }) => {
       <Link to="/contacto" className="general-link-nad" onClick={handleClick}>
         Contacto
       </Link>
+
+      {/* SOLO aparece si el rol es admin */}
       {esAdmin && (
         <Link to="/admin" className="general-link-nad" onClick={handleClick}>
           Admin
@@ -43,3 +48,4 @@ const Nav = ({ onLinkClick }) => {
 };
 
 export default Nav;
+

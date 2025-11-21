@@ -1,6 +1,6 @@
 //Reservas usando MockApi
 import { useEffect, useState } from "react";
-
+import Destacados from "./Destacados";
 const API_RESERVAS = "https://68def7d5898434f41356757f.mockapi.io/reservas";
 
 const Reservas = () => {
@@ -92,96 +92,97 @@ const Reservas = () => {
   };
 
   return (
-    <div className="reservas-page">
-      <h2>Reservar cita</h2>
-      <p className="reservas-sub">
-        Elegí día y horario para tu próxima visita a <strong>Tienda Nad</strong>.
-      </p>
+        <div className="reservas-page">
+        <h2>Reservar cita</h2>
+        <p className="reservas-sub">
+            Elegí día y horario para tu próxima visita a <strong>Tienda Nad</strong>.
+        </p>
 
-      <div className="reservas-wrapper">
-        <form className="reservas-form" onSubmit={manejarSubmit}>
-          <label>
-            Nombre
-            <input
-              type="text"
-              value={nombre}
-              onChange={(e) => setNombre(e.target.value)}
-              placeholder="Tu nombre"
-            />
-          </label>
-
-          <div className="reservas-row">
+        <div className="reservas-wrapper">
+            <form className="reservas-form" onSubmit={manejarSubmit}>
             <label>
-              Fecha
-              <input
-                type="date"
-                value={fecha}
-                onChange={(e) => setFecha(e.target.value)}
-              />
+                Nombre
+                <input
+                type="text"
+                value={nombre}
+                onChange={(e) => setNombre(e.target.value)}
+                placeholder="Tu nombre"
+                />
             </label>
 
+            <div className="reservas-row">
+                <label>
+                Fecha
+                <input
+                    type="date"
+                    value={fecha}
+                    onChange={(e) => setFecha(e.target.value)}
+                />
+                </label>
+
+                <label>
+                Hora
+                <input
+                    type="time"
+                    value={hora}
+                    onChange={(e) => setHora(e.target.value)}
+                />
+                </label>
+            </div>
+
             <label>
-              Hora
-              <input
-                type="time"
-                value={hora}
-                onChange={(e) => setHora(e.target.value)}
-              />
+                Comentario (opcional)
+                <textarea
+                value={comentario}
+                onChange={(e) => setComentario(e.target.value)}
+                placeholder="Ej: mesa cerca de la ventana, reunión de trabajo, etc."
+                rows={3}
+                />
             </label>
-          </div>
 
-          <label>
-            Comentario (opcional)
-            <textarea
-              value={comentario}
-              onChange={(e) => setComentario(e.target.value)}
-              placeholder="Ej: mesa cerca de la ventana, reunión de trabajo, etc."
-              rows={3}
-            />
-          </label>
+            {mensaje && <p className="reservas-msg">{mensaje}</p>}
+            {error && <p className="reservas-msg" style={{ color: "crimson" }}>{error}</p>}
 
-          {mensaje && <p className="reservas-msg">{mensaje}</p>}
-          {error && <p className="reservas-msg" style={{ color: "crimson" }}>{error}</p>}
+            <button type="submit" className="general-button-nad">
+                Reservar
+            </button>
+            </form>
 
-          <button type="submit" className="general-button-nad">
-            Reservar
-          </button>
-        </form>
+            <div className="reservas-lista">
+            <h3>Próximas reservas</h3>
 
-        <div className="reservas-lista">
-          <h3>Próximas reservas</h3>
+            {cargando && <p>Cargando reservas...</p>}
 
-          {cargando && <p>Cargando reservas...</p>}
+            {!cargando && reservas.length === 0 && (
+                <p className="reservas-empty">Todavía no hay reservas.</p>
+            )}
 
-          {!cargando && reservas.length === 0 && (
-            <p className="reservas-empty">Todavía no hay reservas.</p>
-          )}
+            {!cargando && reservas.length > 0 && (
+                <ul>
+                {reservas.map((reserva) => (
+                    <li key={reserva.id}>
+                    <strong>{reserva.nombre}</strong>
+                    <span>
+                        {reserva.fecha} – {reserva.hora}
+                    </span>
+                    {reserva.comentario && <small>{reserva.comentario}</small>}
 
-          {!cargando && reservas.length > 0 && (
-            <ul>
-              {reservas.map((reserva) => (
-                <li key={reserva.id}>
-                  <strong>{reserva.nombre}</strong>
-                  <span>
-                    {reserva.fecha} – {reserva.hora}
-                  </span>
-                  {reserva.comentario && <small>{reserva.comentario}</small>}
-
-                  <button
-                    type="button"
-                    className="general-button-nad"
-                    style={{ alignSelf: "flex-start", marginTop: "0.3rem" }}
-                    onClick={() => cancelarReserva(reserva.id)}
-                  >
-                    Cancelar
-                  </button>
-                </li>
-              ))}
-            </ul>
-          )}
+                    <button
+                        type="button"
+                        className="general-button-nad"
+                        style={{ alignSelf: "flex-start", marginTop: "0.3rem" }}
+                        onClick={() => cancelarReserva(reserva.id)}
+                    >
+                        Cancelar
+                    </button>
+                    </li>
+                ))}
+                </ul>
+            )}
+            </div>
         </div>
-      </div>
-    </div>
+              <Destacados />
+        </div>
   );
 };
 
