@@ -745,7 +745,7 @@ header {
 /* nav + login/logout */
 .header-right {
   display: flex;
-  align-items: center;
+  justify-content: end;
   gap: 1.5rem;
   margin-left: 2rem;
   flex: 1;
