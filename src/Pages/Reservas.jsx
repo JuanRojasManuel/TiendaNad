@@ -170,7 +170,6 @@ const Reservas = () => {
                     <button
                         type="button"
                         className="general-button-nad"
-                        style={{ alignSelf: "flex-start", marginTop: "0.3rem" }}
                         onClick={() => cancelarReserva(reserva.id)}
                     >
                         Cancelar

@@ -1021,7 +1021,7 @@ header {
 }
 
 .reservas-row {
-  display: flex;
+  display: block;
   gap: 0.75rem;
 }
 
