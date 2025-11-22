@@ -1,10 +1,9 @@
 //13 Navegar entre productos
 //14 Estado de carga y manejo de errores.
-//13 Navegar entre productos
-//14 Estado de carga y manejo de errores.
 import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { CarritoContext } from "../context/CarritoContext.jsx";
+import { toast } from "react-toastify";
 
 const ProductoDetalle = () => {
   const { id } = useParams();
@@ -13,6 +12,13 @@ const ProductoDetalle = () => {
   const [error, setError] = useState(null);
 
   const { agregarAlCarrito } = useContext(CarritoContext);
+
+  const handlePedir = () => {
+    agregarAlCarrito(producto);
+    toast.success("Producto agregado al carrito", {
+      icon: "☕",
+    });
+  };
 
   useEffect(() => {
     const obtenerProducto = async () => {
@@ -46,7 +52,7 @@ const ProductoDetalle = () => {
 
   return (
     <>
-  <h2 className="detalle-titulo-nad">{producto.title}</h2>
+      <h2 className="detalle-titulo-nad">{producto.title}</h2>
       <div className="detalle-nad">
         <div className="detalle-img-nad" key={producto.id}>
           <img
@@ -57,22 +63,21 @@ const ProductoDetalle = () => {
         </div>
 
         <div className="detalle-datos-nad">
-        <h4 className="detalle-recipe-title">Notas del barista</h4>
-        <p className="detalle-recipe-nad">{producto.recipe}</p>
+          <h4 className="detalle-recipe-title">Notas del barista</h4>
+          <p className="detalle-recipe-nad">{producto.recipe}</p>
 
-        <div className="contenedorx2Nad">
+          <div className="contenedorx2Nad">
             <button
               className="general-button-nad"
-              onClick={() => agregarAlCarrito(producto)}
+              onClick={handlePedir}
             >
-              Agregar al carrito
+              Pedir
             </button>
             <p className="detalle-precio-nad">
               ${producto.price}
             </p>
+          </div>
         </div>
-        </div>
-
       </div>
     </>
   );

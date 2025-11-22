@@ -1,9 +1,14 @@
-import { useState } from "react";
+// src/components/GestionProducto.jsx
+import { useState, useEffect } from "react";
 import FormProducto from "./FormProducto.jsx";
 import { useProductosContext } from "../context/ProductosContext.jsx";
+import { useSearch } from "../context/SearchContext.jsx";
+import Buscador from "./Buscador.jsx";
+import Paginacion from "./Paginacion.jsx";
 
 const GestionProductos = () => {
   const { productos, eliminarProducto } = useProductosContext();
+  const { busqueda } = useSearch();
 
   const [mostrarForm, setMostrarForm] = useState(false);
   const [modoFormulario, setModoFormulario] = useState("agregar");
@@ -29,13 +34,13 @@ const GestionProductos = () => {
     setProductoSeleccionado(null);
   };
 
-  //  Modal eliminar
+
   const abrirModalEliminar = (producto) => {
     setProductoAEliminar(producto);
     setMostrarModalEliminar(true);
   };
 
-  const cancelarEliminar = () => {
+  const cerrarModalEliminar = () => {
     setMostrarModalEliminar(false);
     setProductoAEliminar(null);
   };
@@ -44,9 +49,38 @@ const GestionProductos = () => {
     if (productoAEliminar) {
       eliminarProducto(productoAEliminar.id);
     }
-    setMostrarModalEliminar(false);
-    setProductoAEliminar(null);
+    cerrarModalEliminar();
   };
+
+  const texto = busqueda.toLowerCase().trim();
+
+  const productosFiltrados = productos.filter((producto) => {
+    if (!texto) return true;
+
+    const id = String(producto.id || "").toLowerCase();
+    const titulo = producto.title?.toLowerCase() || "";
+    const descripcion = producto.description?.toLowerCase() || "";
+    const categoria = producto.category?.toLowerCase() || "";
+
+    return (
+      id.includes(texto) ||
+      titulo.includes(texto) ||
+      descripcion.includes(texto) ||
+      categoria.includes(texto)
+    );
+  });
+
+
+  const [paginaActual, setPaginaActual] = useState(1);
+  const itemsPorPagina = 12; 
+
+  useEffect(() => {
+    setPaginaActual(1);
+  }, [texto, productos.length]);
+
+  const indiceUltimo = paginaActual * itemsPorPagina;
+  const indicePrimero = indiceUltimo - itemsPorPagina;
+  const productosPagina = productosFiltrados.slice(indicePrimero, indiceUltimo);
 
   return (
     <div className="productos-container-nad">
@@ -63,45 +97,64 @@ const GestionProductos = () => {
         </button>
       </div>
 
+      <Buscador
+        label="Filtrar productos por ID, nombre, descripción o categoría"
+        placeholder="Buscar en el gestor..."
+      />
+
       <div>
         {productos.length === 0 ? (
           <p className="productos-empty-nad">
             No hay productos cargados todavía. Empezá agregando el primero.
           </p>
+        ) : productosFiltrados.length === 0 ? (
+          <p className="productos-empty-nad">
+            No hay productos que coincidan con la búsqueda.
+          </p>
         ) : (
-          <ul className="productos-lista-nad">
-            {productos.map((producto) => (
-              <li className="producto-item-nad" key={producto.id}>
-                <img
-                  className="producto-img-nad"
-                  src={producto.image}
-                  alt={producto.title}
-                />
-                <h3 className="producto-nombre-nad">{producto.title}</h3>
-                <p className="producto-descripcion-nad">
-                  {producto.description}
-                </p>
-                <p className="producto-precio-nad">${producto.price}</p>
+          <>
+            <ul className="productos-lista-nad">
+              {productosPagina.map((producto) => (
+                <li className="producto-item-nad" key={producto.id}>
+                  <img
+                    className="producto-img-nad"
+                    src={producto.image}
+                    alt={producto.title}
+                  />
+                  <h3 className="producto-nombre-nad">{producto.title}</h3>
+                  <p className="producto-descripcion-nad">
+                    {producto.description}
+                  </p>
+                  <p className="producto-precio-nad">${producto.price}</p>
 
-                <div className="producto-botonera-nad">
-                  <button
-                    className="general-button-nad"
-                    onClick={() => abrirFormularioEditar(producto)}
-                  >
-                    Editar
-                  </button>
-                  <button
-                    className="general-button-nad btn-eliminar-nad"
-                    onClick={() => abrirModalEliminar(producto)}
-                  >
-                    Eliminar
-                  </button>
-                </div>
-              </li>
-            ))}
-          </ul>
+                  <div className="producto-botonera-nad">
+                    <button
+                      className="general-button-nad"
+                      onClick={() => abrirFormularioEditar(producto)}
+                    >
+                      Editar
+                    </button>
+                    <button
+                      className="general-button-nad btn-eliminar-nad"
+                      onClick={() => abrirModalEliminar(producto)}
+                    >
+                      Eliminar
+                    </button>
+                  </div>
+                </li>
+              ))}
+            </ul>
+
+            <Paginacion
+              totalItems={productosFiltrados.length}
+              itemsPerPage={itemsPorPagina}
+              currentPage={paginaActual}
+              onPageChange={setPaginaActual}
+            />
+          </>
         )}
       </div>
+
 
       {mostrarForm && (
         <FormProducto
@@ -111,45 +164,22 @@ const GestionProductos = () => {
         />
       )}
 
-      {/* 🔴 Modal de confirmación Eliminar */}
+
       {mostrarModalEliminar && (
-        <div
-          className="nad-modal-overlay"
-          onClick={cancelarEliminar}
-        >
-          <div
-            className="nad-modal"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="nad-modal-header">
-              <h3>Eliminar producto</h3>
+        <div className="nad-modal-overlay">
+          <div className="nad-modal">
+            <h3>¿Seguro que querés eliminar este producto?</h3>
+            <p>
+              {productoAEliminar?.title} (ID: {productoAEliminar?.id})
+            </p>
+            <div className="nad-modal-buttons">
               <button
-                className="nad-modal-close"
-                type="button"
-                onClick={cancelarEliminar}
-              >
-                ×
-              </button>
-            </div>
-
-            <div className="nad-modal-body">
-              <p>
-                ¿Seguro que querés eliminar{" "}
-                <strong>{productoAEliminar?.title}</strong>?  
-                Esta acción no se puede deshacer.
-              </p>
-            </div>
-
-            <div className="nad-modal-footer">
-              <button
-                type="button"
-                className="general-button-nad nad-btn-sec"
-                onClick={cancelarEliminar}
+                className="general-button-nad nad-btn-secondary"
+                onClick={cerrarModalEliminar}
               >
                 Cancelar
               </button>
               <button
-                type="button"
                 className="general-button-nad nad-btn-danger"
                 onClick={confirmarEliminar}
               >

@@ -9,7 +9,6 @@ import { createContext, useContext, useState } from "react";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-
   const [usuario, setUsuario] = useState(null);
 
   const login = (nombre, password) => {
@@ -17,10 +16,14 @@ export const AuthProvider = ({ children }) => {
       return { ok: false, mensaje: "Completá usuario y contraseña." };
     }
 
-    let rol = "cliente";
+    let rol = null;
 
     if (nombre === "admin" && password === "1234") {
       rol = "admin";
+    } else if (nombre === "cliente" && password === "1234") {
+      rol = "cliente";
+    } else {
+      return { ok: false, mensaje: "Usuario o contraseña incorrectos." };
     }
 
     setUsuario({

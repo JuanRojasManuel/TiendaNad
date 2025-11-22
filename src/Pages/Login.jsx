@@ -26,7 +26,7 @@ const Login = () => {
     if (resultado.rol === "admin") {
       navigate("/admin");
     } else {
-      navigate("/"); // cliente va a inicio (o al carrito si querés)
+      navigate("/");
     }
   };
 
@@ -35,7 +35,7 @@ const Login = () => {
       <div className="login-card">
         <div className="login-form">
           <h2>Iniciar sesión</h2>
-          <p>Para probar: admin / 1234 (admin) o cliente / 1234 (cliente).</p>
+          <p>Para probar: admin / 1234 (admin) o cliente / (cliente).</p>
 
           <form onSubmit={manejarSubmit}>
             <label>
