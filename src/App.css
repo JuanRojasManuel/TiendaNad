@@ -1359,7 +1359,7 @@ header {
 
 .paginacion-nad-btn {
   border: 1px solid #ccc;
-  background: #fff;
+  background: #4A342E;
   padding: 6px 10px;
   border-radius: 4px;
   cursor: pointer;
@@ -1367,7 +1367,7 @@ header {
 }
 
 .paginacion-nad-btn:hover {
-  background: #f2f2f2;
+  background: #c7a17a;
 }
 
 .paginacion-nad-btn-activa {
