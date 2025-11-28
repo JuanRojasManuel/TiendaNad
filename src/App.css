@@ -1408,6 +1408,45 @@ header {
   border-color: #c68b59; /* tono cafecito */
   box-shadow: 0 0 0 2px rgba(198, 139, 89, 0.2);
 }
+/* ================== CANTIDAD CARRITO  ================== */
+/* ================== CANTIDAD CARRITO  ================== */
+/* ==================  CANTIDAD CARRITO   ================== */
+
+.carrito-controles {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.8rem;
+}
+
+.carrito-cantidad-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid #c7a17a;
+  background: #fff;
+  color: #4A342E;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carrito-cantidad-btn:hover {
+  background: #c7a17a;
+  color: #4A342E;
+}
+
+.carrito-cantidad {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #4A342E;
+  min-width: 22px;
+  text-align: center;
+}
 
 /* ================== RESPONSIVE ================== */
 /* ================== RESPONSIVE ================== */
@@ -1523,6 +1562,21 @@ header {
     padding: 0.6rem 0.5rem;
     font-size: 0.9rem;
   }
+  /* ==================  CELU - control carrito  ================== */
+  .carrito-controles {
+    gap: 0.4rem;
+  }
+
+  .carrito-cantidad-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 1rem;
+  }
+
+  .carrito-cantidad {
+    font-size: 1rem;
+  }
+
 }
   /* ==================  FORM ================== */
 @media (max-width: 600px) {

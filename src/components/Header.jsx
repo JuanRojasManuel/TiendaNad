@@ -9,7 +9,10 @@ import BagIcon from "../assets/BagIcon.jsx";
 function Header() {
   const { carrito } = useContext(CarritoContext);
   const { usuario, logout } = useAuthContext();
-  const contadorEnCarrito = carrito.length;
+  const contadorEnCarrito = carrito.reduce(
+    (acc, item) => acc + (item.cantidad || 1),
+    0
+  );
 
   const [menuOpen, setMenuOpen] = useState(false);
 
