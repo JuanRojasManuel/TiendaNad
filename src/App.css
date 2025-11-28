@@ -1460,8 +1460,22 @@ header {
 }
 
 @media (max-width: 768px) {
-
-
+  .header-nad {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 2000;
+  }
+.buscador-nad {
+  max-width: 80%;
+  margin: auto;
+  padding: 0;
+  display: flex;
+  flex-direction:column;
+  gap: 0.4rem;
+  
+}
   .img-hero-nad {
    height: 200px;
     border-radius: 0;
@@ -1531,6 +1545,7 @@ header {
     flex-direction: column;
     align-items: stretch;
   }
+  /* ==================  Reservas ================== */
   .reservas-page {
     padding: 1.5rem 1rem;
   }
@@ -1542,7 +1557,10 @@ header {
   .reservas-row {
     flex-direction: column;
   }
-
+  /* ==================  Ajuste TOAST ================== */
+  .Toastify__toast-container {
+    margin-top: 5rem !important;
+  }
   /* ==================  CELU - 2 PROD ================== */
   .productos-lista-nad {
     grid-template-columns: repeat(2, minmax(0, 1fr));
