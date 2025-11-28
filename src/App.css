@@ -1555,7 +1555,16 @@ header {
   }
 
   .reservas-row {
+    display: flex;
     flex-direction: column;
+    gap: 1rem;
+  }
+  .reservas-row label {
+    width: 90%;
+  }
+
+  .reservas-row input {
+    width: 100%;
   }
   /* ==================  Ajuste TOAST ================== */
   .Toastify__toast-container {
